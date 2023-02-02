@@ -32,7 +32,7 @@ void UITable::generate_horizontal_separator() {
     for(auto length: this->column_sizes){
         this->horizontal_line += std::string(length, '-');
     }
-    this->horizontal_line += std::string((this->column_margin_left+this->column_margin_right)*this->column_sizes.size(), '-');
+    this->horizontal_line += std::string((this->formatting.column_margin_left+this->formatting.column_margin_right)*this->column_sizes.size(), '-');
     this->horizontal_line += std::string(this->vertical_lines_id.size(), '-');
 
     for(int sep_id = 0; sep_id < this->vertical_lines_id.size(); sep_id++){
@@ -42,7 +42,9 @@ void UITable::generate_horizontal_separator() {
             line_idx += this->column_sizes[column_id];
         }
 
-        line_idx += (this->column_margin_right+this->column_margin_left) * (separator_id+1);
+        // separator_id + 1 caused by first index at zero
+        line_idx += (this->formatting.column_margin_right+this->formatting.column_margin_left) * (separator_id+1);
+        // shift right due to previous separators
         line_idx += sep_id;
         this->horizontal_line[line_idx] = '+';
     }
@@ -83,8 +85,8 @@ void UITable::draw_cell(int column, int row) {
     unsigned long long delta_length = cell_length - text_length;
     unsigned long long space = delta_length / 2;
     unsigned long long extra_space_char = delta_length - (2 * space);
-    this->draw_line(this->column_margin_left, ' ');
-    switch (this->column_align[column]) {
+    this->draw_line(this->formatting.column_margin_left, ' ');
+    switch (this->formatting.column_align[column]) {
         case 0: // left align
             std::cout<<this->content[row][column];
             this->draw_line(delta_length, ' ');
@@ -99,7 +101,7 @@ void UITable::draw_cell(int column, int row) {
             std::cout<<this->content[row][column];
             break;
     }
-    this->draw_line(this->column_margin_right, ' ');
+    this->draw_line(this->formatting.column_margin_right, ' ');
 
     this->draw_vertical_separator(column);
 }
