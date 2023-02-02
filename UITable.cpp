@@ -9,12 +9,16 @@
 void UITable::draw() {
     this->find_column_sizes();
     this->generate_horizontal_separator();
+
     for(int row_id=0; row_id < this->content.size(); row_id++){
-        this->draw_horizontal_separator(row_id);
+        if(row_id != this->content.size()-1) this->draw_horizontal_separator(row_id);
+
         for(int column_id=0; column_id < this->content[row_id].size(); column_id++) {
            this->draw_cell(column_id, row_id);
         }
         std::cout<<std::endl;
+
+        if(row_id == this->content.size()-1) this->draw_horizontal_separator(row_id);
     }
 }
 
@@ -81,9 +85,16 @@ void UITable::draw_vertical_separator(int column) {
 }
 
 void UITable::draw_horizontal_separator(int row) {
+    if(this->formatting.frame_around){
+        if(row == 0 or row == (this->content.size()-1)) {
+            std::cout<<horizontal_line<<std::endl;
+            return;
+        }
+    }
     for(int id: this->horizontal_lines_id){
         if(id == row){
-           std::cout<<horizontal_line<<std::endl;
+            std::cout<<horizontal_line<<std::endl;
+            return;
         }
     }
 }
