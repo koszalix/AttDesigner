@@ -29,6 +29,12 @@ void UITable::find_column_sizes() {
 }
 
 void UITable::generate_horizontal_separator() {
+    this->horizontal_line = "";
+
+    if(this->formatting.frame_around) {
+        this->horizontal_line += "+";
+    }
+
     for(auto length: this->column_sizes){
         this->horizontal_line += std::string(length, '-');
     }
@@ -44,9 +50,12 @@ void UITable::generate_horizontal_separator() {
 
         // separator_id + 1 caused by first index at zero
         line_idx += (this->formatting.column_margin_right+this->formatting.column_margin_left) * (separator_id+1);
-        // shift right due to previous separators
-        line_idx += sep_id;
+        // shift right due to previous separators, adding value of frame_around shifts right when frame char is present
+        line_idx += (sep_id + this->formatting.frame_around);
         this->horizontal_line[line_idx] = '+';
+    }
+    if(this->formatting.frame_around) {
+        this->horizontal_line += "+";
     }
 
 }
@@ -85,6 +94,9 @@ void UITable::draw_cell(int column, int row) {
     unsigned long long delta_length = cell_length - text_length;
     unsigned long long space = delta_length / 2;
     unsigned long long extra_space_char = delta_length - (2 * space);
+
+    if(column == 0 and this->formatting.frame_around) std::cout<<"|";
+
     this->draw_line(this->formatting.column_margin_left, ' ');
     switch (this->formatting.column_align[column]) {
         case 0: // left align
@@ -96,7 +108,7 @@ void UITable::draw_cell(int column, int row) {
             std::cout<<this->content[row][column];
             this->draw_line(space, ' ');
             break;
-        case 2: // center right
+        case 2: // right align
             this->draw_line(delta_length, ' ');
             std::cout<<this->content[row][column];
             break;
@@ -104,4 +116,6 @@ void UITable::draw_cell(int column, int row) {
     this->draw_line(this->formatting.column_margin_right, ' ');
 
     this->draw_vertical_separator(column);
+    if(column == (this->column_sizes.size()-1) and this->formatting.frame_around) std::cout<<"|";
+
 }

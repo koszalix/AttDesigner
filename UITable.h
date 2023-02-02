@@ -10,7 +10,10 @@
 /**
  * Stores all formatting related variables
  *
- *
+ * @var column_align: align for every column separately, 0 - left align, 1 - center align, 2 - right align
+ * @var column_margin_left: left margin of column
+ * @var column_margin_right: right margin of column
+ * @var frame_around: set true to generate frame around table
  */
 struct UITableFormatting{
     std::vector<int> column_align;
@@ -84,9 +87,7 @@ public:
             this->columns_sizes_it = this->column_sizes.begin();
             this->column_sizes.insert(this->columns_sizes_it, (this->content.size()+1), 0);
 
-
         }
-        //TODO: formatting in struct
         //TODO: check lengths of vectors
         //TODO: check horizontal lines
 };
