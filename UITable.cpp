@@ -5,8 +5,30 @@
 #include <iostream>
 #include "UITable.h"
 
+void UITable::sanity() {
+    for(auto element: this->content){
+        if(element.size() != this->content[0].size()){
+            throw std::invalid_argument("Rows sizes mismatch");
+        }
+    }
+    if(this->vertical_lines_id.size() > this->content[0].size()){
+        throw std::out_of_range("Columns separator have too many elements");
+    }
+    if(this->horizontal_lines_id.size() > this->content.size()){
+        throw std::out_of_range("Rows separator have too many elements");
+    }
+    for(auto line_id : this->vertical_lines_id){
+        if(line_id >= this->content[0].size() ) throw std::out_of_range("Id of column separator exceeded number of columns");
+        if(line_id < 0) throw std::out_of_range("Column separator must be greater than zero");
+    }
+    for(auto line_id : this->vertical_lines_id){
+        if(line_id >= this->content.size() ) throw std::out_of_range("Id of row separator exceeded number of row");
+        if(line_id < 0) throw std::out_of_range("Row separator must be greater than zero");
+    }
+}
 
 void UITable::draw() {
+    this->sanity();
     this->find_column_sizes();
     this->generate_horizontal_separator();
 
@@ -128,5 +150,4 @@ void UITable::draw_cell(int column, int row) {
 
     this->draw_vertical_separator(column);
     if(column == (this->column_sizes.size()-1) and this->formatting.frame_around) std::cout<<"|";
-
 }

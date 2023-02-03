@@ -35,7 +35,16 @@ private:
     std::vector<unsigned long long >::iterator columns_sizes_it;
     std::string horizontal_line;
 
-
+    /**
+     * Check parameters of provided objects
+     *
+     * Throws errors when
+     * - rows have different number of columns
+     * - columns separator vector have too many items or any value of this vector exceeded number of columns
+     * - rows separator vector have too many items or any value of this vector exceeded number of rows
+     * - rows and columns separators are greater than zero
+     */
+    void sanity();
     /**
      * Find the longest string in every column, and save this value to this->column_sizes
      */
@@ -74,7 +83,18 @@ private:
 
 
 public:
+    /**
+     * Display table content
+     */
     void draw();
+
+    /**
+     *
+     * @param content
+     * @param columns_separators
+     * @param row_separators
+     * @param formatting
+     */
     UITable(const std::vector<std::vector<std::string>> &content,
             std::vector<int> &columns_separators,
             std::vector<int> &row_separators,
