@@ -2,9 +2,9 @@
 // Created by pawel on 03.02.2023.
 //
 
-#include "TableStorage.h"
+#include "StorageTable.h"
 
-bool TableStorage::add_row(std::vector<std::string> row) {
+bool StorageTable::add_row(std::vector<std::string> row) {
     if ((this->row_count == 0) or (row.size() == this->columns_count)) {
         this->content.push_back(row);
         this->row_count++;
@@ -31,7 +31,7 @@ bool TableStorage::add_row(std::vector<std::string> row) {
     return false;
 }
 
-bool TableStorage::add_row(std::vector<std::string> row, int pos) {
+bool StorageTable::add_row(std::vector<std::string> row, int pos) {
     if(pos < 0){
         return false;
     }
@@ -65,7 +65,7 @@ bool TableStorage::add_row(std::vector<std::string> row, int pos) {
     return false;
 }
 
-bool TableStorage::add_column(std::vector<std::string> column) {
+bool StorageTable::add_column(std::vector<std::string> column) {
     if (this->columns_count == 0) {
         for (const std::string &column_data: column) {
             this->content.push_back({column_data});
@@ -94,7 +94,7 @@ bool TableStorage::add_column(std::vector<std::string> column) {
     return false;
 }
 
-bool TableStorage::add_column(std::vector<std::string> column, int pos) {
+bool StorageTable::add_column(std::vector<std::string> column, int pos) {
     if (pos < 0) {
         return false;
     }
@@ -126,7 +126,7 @@ bool TableStorage::add_column(std::vector<std::string> column, int pos) {
     return false;
 }
 
-bool TableStorage::rem_row(int pos) {
+bool StorageTable::rem_row(int pos) {
     if(pos > 0 or pos < this->row_count){
         this->content.erase(this->content.begin() + pos);
         this->row_count--;
@@ -135,7 +135,7 @@ bool TableStorage::rem_row(int pos) {
     return false;
 }
 
-bool TableStorage::rem_column(int pos) {
+bool StorageTable::rem_column(int pos) {
     if(pos > 0 or pos < this->columns_count){
         // TODO: check if reference is needed
         for(std::vector<std::string> &row: this->content){
@@ -147,7 +147,7 @@ bool TableStorage::rem_column(int pos) {
     return false;
 }
 
-bool TableStorage::change_item(int row, int column, std::string new_value) {
+bool StorageTable::change_item(int row, int column, std::string new_value) {
     if (row < this->row_count and row > 0 and column < this->columns_count and column > 0) {
         this->content[row][column] = new_value;
         return true;
@@ -155,7 +155,7 @@ bool TableStorage::change_item(int row, int column, std::string new_value) {
     return false;
 }
 
-void TableStorage::clear_table() {
+void StorageTable::clear_table() {
     this->content.clear();
     this->columns_count = 0;
     this->row_count = 0;

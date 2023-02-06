@@ -1,12 +1,12 @@
 #include <iostream>
 #include "UITable.h"
-#include "TableStorage.h"
+#include "StorageTable.h"
 
 int main() {
 
 
 
-    TableStorage storage;
+    StorageTable storage;
 
     storage.add_row({"A1", "A2", "A3", "A  4", "A5", "A6"});
     storage.add_row({"B1", "B2", "B3", "B4", "B5", "B6"});

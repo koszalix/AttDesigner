@@ -2,15 +2,15 @@
 // Created by pawel on 03.02.2023.
 //
 
-#ifndef ATTDESIGNER_TABLESTORAGE_H
-#define ATTDESIGNER_TABLESTORAGE_H
+#ifndef ATTDESIGNER_STORAGETABLE_H
+#define ATTDESIGNER_STORAGETABLE_H
 
 #include <vector>
 #include <string>
 
 class UITable;
 
-class TableStorage {
+class StorageTable {
     friend UITable;
 private:
     unsigned long long columns_count = 0;
@@ -112,4 +112,4 @@ public:
 };
 
 
-#endif //ATTDESIGNER_TABLESTORAGE_H
+#endif //ATTDESIGNER_STORAGETABLE_H

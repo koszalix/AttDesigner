@@ -4,7 +4,7 @@
 
 #include <vector>
 #include <string>
-#include "TableStorage.h"
+#include "StorageTable.h"
 
 #ifndef ATTDESIGNER_UITABLE_H
 #define ATTDESIGNER_UITABLE_H
@@ -26,7 +26,7 @@ struct UITableFormatting{
 
 class UITable {
 private:
-    TableStorage &storage;
+    StorageTable &storage;
 
     const std::vector<int> &vertical_lines_id;
     const std::vector<int> &horizontal_lines_id;
@@ -89,8 +89,8 @@ public:
      */
     void draw();
 
-    UITable(TableStorage &data, std::vector<int> &columns_separator, std::vector<int> &row_separators,
-           UITableFormatting &formatting):
+    UITable(StorageTable &data, std::vector<int> &columns_separator, std::vector<int> &row_separators,
+            UITableFormatting &formatting):
            storage(data),
            vertical_lines_id(columns_separator),
            horizontal_lines_id(row_separators),
