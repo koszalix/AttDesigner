@@ -34,7 +34,6 @@ private:
     const UITableFormatting &formatting;
 
     std::vector<unsigned long long> column_sizes;
-    std::vector<unsigned long long >::iterator columns_sizes_it;
     std::string horizontal_line;
 
     /**
@@ -116,9 +115,6 @@ public:
            horizontal_lines_id(row_separators),
            formatting(formatting)
            {
-       this->columns_sizes_it = this->column_sizes.begin();
-       this->column_sizes.insert(this->columns_sizes_it, (this->storage.row_count + 1), 0);
-
    }
 
 };

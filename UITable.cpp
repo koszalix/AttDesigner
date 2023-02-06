@@ -45,6 +45,9 @@ void UITable::draw() {
 }
 
 void UITable::find_column_sizes() {
+    this->column_sizes.clear();
+    this->column_sizes.insert(this->column_sizes.begin(), (this->storage.columns_count), 0);
+
     for(const auto & row_id : this->storage.content){
         for(int column_id=0; column_id < row_id.size(); column_id++){
             if(row_id[column_id].length() > this->column_sizes[column_id]){
