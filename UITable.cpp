@@ -149,5 +149,5 @@ void UITable::draw_cell(int column, int row) {
     this->draw_line(this->formatting.column_margin_right, ' ');
 
     this->draw_vertical_separator(column);
-    if(column == (this->column_sizes.size()-1) and this->formatting.frame_around) std::cout<<"|";
+    if(column == (this->storage.columns_count-1) and this->formatting.frame_around) std::cout<<"|";
 }
