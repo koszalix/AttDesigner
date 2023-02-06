@@ -7,7 +7,8 @@
 
 #include <vector>
 #include <string>
-#include "UITable.h"
+
+class UITable;
 
 class TableStorage {
     friend UITable;

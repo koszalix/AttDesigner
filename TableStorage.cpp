@@ -70,10 +70,14 @@ bool TableStorage::add_column(std::vector<std::string> column) {
         for (const std::string &column_data: column) {
             this->content.push_back({column_data});
         }
+        this->columns_count++;
+
     } else if (column.size() == this->row_count or (column.size() > this->row_count and this->auto_fill)) {
         for (unsigned long long row_id = 0; row_id < this->content.size(); row_id++) {
             this->content[row_id].push_back(column[row_id]);
         }
+        this->columns_count++;
+
         return true;
     } else if (column.size() < this->row_count and this->auto_fill) {
         for (unsigned long long row_id = 0; row_id < this->content.size(); row_id++) {
@@ -84,6 +88,7 @@ bool TableStorage::add_column(std::vector<std::string> column) {
             }
 
         }
+        this->columns_count++;
         return true;
     }
     return false;
@@ -101,6 +106,7 @@ bool TableStorage::add_column(std::vector<std::string> column, int pos) {
             auto row = this->content[row_id];
             row.insert(row.begin() + pos, column[row_id]);
         }
+        this->columns_count++;
         return true;
     } else if (column.size() < this->row_count and this->auto_fill) {
         for (unsigned long long row_id = 0; row_id < this->content.size(); row_id++) {
@@ -110,8 +116,10 @@ bool TableStorage::add_column(std::vector<std::string> column, int pos) {
             } else {
                 auto row = this->content[row_id];
                 row.insert(row.begin() + pos, "");
+
             }
         }
+        this->columns_count++;
         return true;
 
     }
@@ -121,6 +129,7 @@ bool TableStorage::add_column(std::vector<std::string> column, int pos) {
 bool TableStorage::rem_row(int pos) {
     if(pos > 0 or pos < this->row_count){
         this->content.erase(this->content.begin() + pos);
+        this->row_count--;
         return true;
     }
     return false;
@@ -132,6 +141,8 @@ bool TableStorage::rem_column(int pos) {
         for(std::vector<std::string> &row: this->content){
             row.erase(row.begin()+pos);
         }
+        this->columns_count--;
+        return true;
     }
     return false;
 }
