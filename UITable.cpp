@@ -135,6 +135,7 @@ void UITable::draw_cell(int column, int row) {
 
     this->draw_line(this->formatting.column_margin_left, ' ');
     switch (this->formatting.column_align[column]) {
+        default:
         case 0: // left align
             std::cout<<this->storage.content[row][column];
             this->draw_line(delta_length, ' ');
