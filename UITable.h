@@ -4,6 +4,7 @@
 
 #include <vector>
 #include <string>
+#include "TableStorage.h"
 
 #ifndef ATTDESIGNER_UITABLE_H
 #define ATTDESIGNER_UITABLE_H
@@ -24,7 +25,8 @@ struct UITableFormatting{
 
 class UITable {
 private:
-    const std::vector<std::vector<std::string>> &content;
+//    const std::vector<std::vector<std::string>> &content;
+    TableStorage &storage;
 
     const std::vector<int> &vertical_lines_id;
     const std::vector<int> &horizontal_lines_id;
@@ -95,21 +97,30 @@ public:
      * @param row_separators
      * @param formatting
      */
-    UITable(const std::vector<std::vector<std::string>> &content,
+   /* UITable(const std::vector<std::vector<std::string>> &content,
             std::vector<int> &columns_separators,
             std::vector<int> &row_separators,
             UITableFormatting &formatting):
-        content(content),
-        vertical_lines_id(columns_separators),
-        horizontal_lines_id(row_separators),
-        formatting(formatting)
-        {
-            this->columns_sizes_it = this->column_sizes.begin();
-            this->column_sizes.insert(this->columns_sizes_it, (this->content.size()+1), 0);
+    content(content),
+    vertical_lines_id(columns_separators),
+    horizontal_lines_id(row_separators),
+    formatting(formatting) {
+        this->columns_sizes_it = this->column_sizes.begin();
+        this->column_sizes.insert(this->columns_sizes_it, (this->content.size() + 1), 0);
 
-        }
-        //TODO: check lengths of vectors
-        //TODO: check horizontal lines
+    }*/
+    UITable(TableStorage &data, std::vector<int> &columns_separator, std::vector<int> &row_separators,
+           UITableFormatting &formatting):
+           storage(data),
+           vertical_lines_id(columns_separator),
+           horizontal_lines_id(row_separators),
+           formatting(formatting)
+           {
+       this->columns_sizes_it = this->column_sizes.begin();
+       this->column_sizes.insert(this->columns_sizes_it, (this->storage.row_count + 1), 0);
+
+   }
+
 };
 
 

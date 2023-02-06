@@ -6,23 +6,23 @@
 #include "UITable.h"
 
 void UITable::sanity() {
-    for(auto element: this->content){
-        if(element.size() != this->content[0].size()){
+    for(auto element: this->storage.content){
+        if(element.size() != this->storage.columns_count){
             throw std::invalid_argument("Rows sizes mismatch");
         }
     }
-    if(this->vertical_lines_id.size() > this->content[0].size()){
+    if(this->vertical_lines_id.size() > this->storage.columns_count){
         throw std::out_of_range("Columns separator have too many elements");
     }
-    if(this->horizontal_lines_id.size() > this->content.size()){
+    if(this->horizontal_lines_id.size() > this->storage.row_count){
         throw std::out_of_range("Rows separator have too many elements");
     }
     for(auto line_id : this->vertical_lines_id){
-        if(line_id >= this->content[0].size() ) throw std::out_of_range("Id of column separator exceeded number of columns");
+        if(line_id >= this->storage.columns_count ) throw std::out_of_range("Id of column separator exceeded number of columns");
         if(line_id < 0) throw std::out_of_range("Column separator must be greater than zero");
     }
     for(auto line_id : this->vertical_lines_id){
-        if(line_id >= this->content.size() ) throw std::out_of_range("Id of row separator exceeded number of row");
+        if(line_id >= this->storage.row_count ) throw std::out_of_range("Id of row separator exceeded number of row");
         if(line_id < 0) throw std::out_of_range("Row separator must be greater than zero");
     }
 }
@@ -32,20 +32,20 @@ void UITable::draw() {
     this->find_column_sizes();
     this->generate_horizontal_separator();
 
-    for(int row_id=0; row_id < this->content.size(); row_id++){
-        if(row_id != this->content.size()-1) this->draw_horizontal_separator(row_id);
+    for(int row_id=0; row_id < this->storage.row_count; row_id++){
+        if(row_id != this->storage.row_count-1) this->draw_horizontal_separator(row_id);
 
-        for(int column_id=0; column_id < this->content[row_id].size(); column_id++) {
+        for(int column_id=0; column_id < this->storage.columns_count; column_id++) {
            this->draw_cell(column_id, row_id);
         }
         std::cout<<std::endl;
 
-        if(row_id == this->content.size()-1) this->draw_horizontal_separator(row_id);
+        if(row_id == this->storage.row_count-1) this->draw_horizontal_separator(row_id);
     }
 }
 
 void UITable::find_column_sizes() {
-    for(const auto & row_id : this->content){
+    for(const auto & row_id : this->storage.content){
         for(int column_id=0; column_id < row_id.size(); column_id++){
             if(row_id[column_id].length() > this->column_sizes[column_id]){
                 this->column_sizes[column_id] = row_id[column_id].length();
@@ -108,7 +108,7 @@ void UITable::draw_vertical_separator(int column) {
 
 void UITable::draw_horizontal_separator(int row) {
     if(this->formatting.frame_around){
-        if(row == 0 or row == (this->content.size()-1)) {
+        if(row == 0 or row == (this->storage.row_count-1)) {
             std::cout<<horizontal_line<<std::endl;
             return;
         }
@@ -123,7 +123,7 @@ void UITable::draw_horizontal_separator(int row) {
 
 void UITable::draw_cell(int column, int row) {
     unsigned long long cell_length = this->column_sizes[column];
-    unsigned long long text_length = this->content[row][column].length();
+    unsigned long long text_length = this->storage.content[row][column].length();
     unsigned long long delta_length = cell_length - text_length;
     unsigned long long space = delta_length / 2;
     unsigned long long extra_space_char = delta_length - (2 * space);
@@ -133,17 +133,17 @@ void UITable::draw_cell(int column, int row) {
     this->draw_line(this->formatting.column_margin_left, ' ');
     switch (this->formatting.column_align[column]) {
         case 0: // left align
-            std::cout<<this->content[row][column];
+            std::cout<<this->storage.content[row][column];
             this->draw_line(delta_length, ' ');
             break;
         case 1: // center align
             this->draw_line(space+extra_space_char, ' ');
-            std::cout<<this->content[row][column];
+            std::cout<<this->storage.content[row][column];
             this->draw_line(space, ' ');
             break;
         case 2: // right align
             this->draw_line(delta_length, ' ');
-            std::cout<<this->content[row][column];
+            std::cout<<this->storage.content[row][column];
             break;
     }
     this->draw_line(this->formatting.column_margin_right, ' ');
