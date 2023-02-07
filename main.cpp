@@ -1,12 +1,12 @@
 #include <iostream>
-#include "UITable.h"
-#include "StorageTable.h"
+#include "UI/Table.h"
+#include "Storage/Table.h"
 
 int main() {
 
 
 
-    StorageTable storage;
+    Storage::Table storage;
 
     storage.add_row({"A1", "A2", "A3", "A  4", "A5", "A6"});
     storage.add_row({"B1", "B2", "B3", "B4", "B5", "B6"});
@@ -18,12 +18,12 @@ int main() {
     std::vector<int> horizontal_lines = {0,2};
     std::vector<int> vertical_sep = {1,2};
 
-    UITableFormatting form;
+    UI::TableFormatting form;
     form.column_margin_left = 1;
     form.column_margin_right = 1;
     form.column_align = {0,0, 0, 0, 0, 0};
     form.frame_around = true;
-    UITable table(storage, vertical_sep, horizontal_lines,  form);
+    UI::Table table(storage, vertical_sep, horizontal_lines, form);
 
     std::cout << "Basic table" << std::endl;
     table.draw();
