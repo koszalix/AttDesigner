@@ -12,18 +12,18 @@ namespace UI {
                 throw std::invalid_argument("Rows sizes mismatch");
             }
         }
-        if (this->vertical_lines_id.size() > this->storage.columns_count) {
+        if (this->formatting.columns_separators.size() > this->storage.columns_count) {
             throw std::out_of_range("Columns separator have too many elements");
         }
-        if (this->horizontal_lines_id.size() > this->storage.row_count) {
+        if (this->formatting.rows_separators.size() > this->storage.row_count) {
             throw std::out_of_range("Rows separator have too many elements");
         }
-        for (auto line_id: this->vertical_lines_id) {
+        for (auto line_id: this->formatting.columns_separators) {
             if (line_id >= this->storage.columns_count)
                 throw std::out_of_range("Id of column separator exceeded number of columns");
             if (line_id < 0) throw std::out_of_range("Column separator must be greater than zero");
         }
-        for (auto line_id: this->vertical_lines_id) {
+        for (auto line_id: this->formatting.columns_separators) {
             if (line_id >= this->storage.row_count)
                 throw std::out_of_range("Id of row separator exceeded number of row");
             if (line_id < 0) throw std::out_of_range("Row separator must be greater than zero");
@@ -73,10 +73,10 @@ namespace UI {
         this->horizontal_line += std::string(
                 (this->formatting.column_margin_left + this->formatting.column_margin_right) *
                 this->column_sizes.size(), '-');
-        this->horizontal_line += std::string(this->vertical_lines_id.size(), '-');
+        this->horizontal_line += std::string(this->formatting.columns_separators.size(), '-');
 
-        for (int sep_id = 0; sep_id < this->vertical_lines_id.size(); sep_id++) {
-            auto separator_id = this->vertical_lines_id[sep_id];
+        for (int sep_id = 0; sep_id < this->formatting.columns_separators.size(); sep_id++) {
+            auto separator_id = this->formatting.columns_separators[sep_id];
             unsigned long long line_idx = 0;
             for (int column_id = 0; column_id <= separator_id; column_id++) {
                 line_idx += this->column_sizes[column_id];
@@ -106,7 +106,7 @@ namespace UI {
 //    }
 
     void Table::draw_vertical_separator(int column) {
-        for (int id: this->vertical_lines_id) {
+        for (int id: this->formatting.columns_separators) {
             if (id == column) {
                 std::cout << "|";
                 return;
@@ -121,7 +121,7 @@ namespace UI {
                 return;
             }
         }
-        for (int id: this->horizontal_lines_id) {
+        for (int id: this->formatting.rows_separators) {
             if (id == row) {
                 std::cout << horizontal_line << std::endl;
                 return;

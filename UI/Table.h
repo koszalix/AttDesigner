@@ -26,8 +26,6 @@ class Table : private UI::_Utils{
     private:
         const Storage::Table &storage;
 
-        const std::vector<int> &vertical_lines_id;
-        const std::vector<int> &horizontal_lines_id;
 
         const UI::TableFormatting &formatting;
 
@@ -89,11 +87,8 @@ class Table : private UI::_Utils{
          */
         void draw();
 
-        Table(const Storage::Table &data, std::vector<int> &columns_separator, std::vector<int> &row_separators,
-              UI::TableFormatting &formatting) :
+        Table(const Storage::Table &data, UI::TableFormatting &formatting) :
                 storage(data),
-                vertical_lines_id(columns_separator),
-                horizontal_lines_id(row_separators),
                 formatting(formatting) {}
 
     };

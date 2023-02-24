@@ -13,6 +13,8 @@ namespace UI{
         int column_margin_left = 0;
         int column_margin_right = 0;
         bool frame_around = true;
+        std::vector<int> columns_separators;
+        std::vector<int> rows_separators;
     };
 }
 #endif //ATTDESIGNER_TABLEFORMATTING_H
