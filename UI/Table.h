@@ -89,7 +89,8 @@ class Table : private UI::_Utils{
 
         Table(const Storage::Table &data, UI::TableFormatting &formatting) :
                 storage(data),
-                formatting(formatting) {}
+                formatting(formatting)
+                {}
 
     };
 }

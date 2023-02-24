@@ -92,7 +92,8 @@ namespace Storage {
          * @param att_type Attenuator type
          */
         void set_type(int att_type) {
-            if (att_type > no_of_types or type < 0) {
+
+            if (att_type > no_of_types or att_type < 0) {
                 throw std::invalid_argument("Invalid attenuator type");
             } else {
                 this->type = att_type;

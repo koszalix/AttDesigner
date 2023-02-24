@@ -10,6 +10,8 @@ namespace UI {
     public:
         static void draw_line(unsigned long long length);
         static void draw_line(unsigned long long length, char sign);
+        static double get_input_double();
+        static int get_input_int();
     };
 }
 

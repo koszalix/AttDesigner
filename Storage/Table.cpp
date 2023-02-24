@@ -4,6 +4,8 @@
 
 #include "Table.h"
 
+#include <utility>
+
 namespace Storage {
     bool Table::add_row(std::vector<std::string> row) {
         if ((this->row_count == 0) or (row.size() == this->columns_count)) {
@@ -149,8 +151,8 @@ namespace Storage {
     }
 
     bool Table::change_item(int row, int column, std::string new_value) {
-        if (row < this->row_count and row > 0 and column < this->columns_count and column > 0) {
-            this->content[row][column] = new_value;
+        if (row < this->row_count and row >= 0 and column < this->columns_count and column >= 0) {
+            this->content[row][column] = std::move(new_value);
             return true;
         }
         return false;

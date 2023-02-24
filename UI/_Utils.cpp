@@ -4,6 +4,7 @@
 
 #include "_Utils.h"
 #include <iostream>
+#include <string>
 
 namespace UI{
     void _Utils::draw_line(unsigned long long length) {
@@ -21,5 +22,17 @@ namespace UI{
                 std::cout << sign;
             }
         }
+    }
+
+    double _Utils::get_input_double() {
+        std::string tmp;
+        std::getline(std::cin, tmp);
+        return std::stod(tmp);
+    }
+
+    int _Utils::get_input_int() {
+        std::string tmp;
+        std::getline(std::cin, tmp);
+        return std::stoi(tmp);
     }
 }

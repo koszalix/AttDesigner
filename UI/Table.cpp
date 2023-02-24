@@ -4,6 +4,7 @@
 
 #include <iostream>
 #include "Table.h"
+#include <iomanip>
 
 namespace UI {
     void Table::sanity() {
@@ -95,15 +96,7 @@ namespace UI {
 
     }
 
-// TO BE REMOVED
-//    void Table::draw_line(unsigned long long length, char sign) {
-//
-//        if (length > 0) {
-//            for (int pos = 0; pos < length; pos++) {
-//                std::cout << sign;
-//            }
-//        }
-//    }
+
 
     void Table::draw_vertical_separator(int column) {
         for (int id: this->formatting.columns_separators) {
