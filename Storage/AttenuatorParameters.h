@@ -144,6 +144,23 @@ namespace Storage {
         int get_type() const{
             return this->type;
         }
+
+        std::string get_name() {
+            switch(this->type){
+                case 0:
+                    return "Pi";
+                    break;
+                case 1:
+                    return "Tee";
+                    break;
+                case 2:
+                    return "B. Pi";
+                    break;
+                case 3:
+                    return "B. Tee";
+                    break;
+            }
+        };
     };
 }
 
