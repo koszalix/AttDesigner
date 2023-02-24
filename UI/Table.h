@@ -6,6 +6,7 @@
 #include <string>
 #include "../Storage/Table.h"
 #include "TableFormatting.h"
+#include "_Utils.h"
 
 #ifndef ATTDESIGNER_UITABLE_H
 #define ATTDESIGNER_UITABLE_H
@@ -21,9 +22,9 @@
 
 
 namespace UI {
-    class Table {
+class Table : private UI::_Utils{
     private:
-        Storage::Table &storage;
+        const Storage::Table &storage;
 
         const std::vector<int> &vertical_lines_id;
         const std::vector<int> &horizontal_lines_id;
@@ -54,12 +55,13 @@ namespace UI {
          */
         void generate_horizontal_separator();
 
-        /**
-         * Print line of chars on terminal, be careful this method print any end-line characters
-         * @param length number of characters to print
-         * @param sign character to print
-         */
-        static void draw_line(unsigned long long length, char sign);
+        // TO BE REMOVED
+//        /**
+//         * Print line of chars on terminal, be careful this method print any end-line characters
+//         * @param length number of characters to print
+//         * @param sign character to print
+//         */
+//        static void draw_line(unsigned long long length, char sign);
 
         /**
          * Check (and print if needed) column separator
@@ -87,7 +89,7 @@ namespace UI {
          */
         void draw();
 
-        Table(Storage::Table &data, std::vector<int> &columns_separator, std::vector<int> &row_separators,
+        Table(const Storage::Table &data, std::vector<int> &columns_separator, std::vector<int> &row_separators,
               UI::TableFormatting &formatting) :
                 storage(data),
                 vertical_lines_id(columns_separator),

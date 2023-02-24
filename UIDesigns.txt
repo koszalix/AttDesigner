@@ -16,5 +16,4 @@ Variants No(F7): 5
 | 11 | 12 | 13  1131234  15 | 126  17 |
 | 11 | 12 | 13     14    15 |  16  17 |
 +----+----+-----------------+---------+
-Export to CSV(F8)
-User Arrows to Scroll 
+Export to CSV(F8) | User Arrows to Scroll

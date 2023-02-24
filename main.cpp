@@ -1,6 +1,8 @@
 #include <iostream>
 #include "UI/Table.h"
 #include "Storage/Table.h"
+#include "UI/AttenuatorParameters.h"
+#include "Storage/AttenuatorParameters.h"
 
 int main() {
 
@@ -59,6 +61,18 @@ int main() {
     std::cout << std::endl << "Changed B6 to dog" << std::endl;
     storage.change_item(1,2, "dog");
     table.draw();
+
+    Storage::AttenuatorParameters att;
+    att.set_input_impedance(50);
+    att.set_output_impedance(75);
+    att.set_attenuation(20);
+    att.set_type(1);
+
+    UI::AttenuatorParameters ui_att{att};
+    ui_att.draw();
+
+    att.set_output_impedance(30);
+    ui_att.draw();
 
     return 0;
 }
