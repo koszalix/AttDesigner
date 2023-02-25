@@ -9,8 +9,8 @@
 void App::run(){
     this->prompts.init_prompt();
     this->update_att_params_table();
+    system("cls");
     this->att_params_table.draw();
-
 }
 
 std::string App::fixed_to_string(double val, int prec) {
@@ -22,7 +22,6 @@ std::string App::fixed_to_string(double val, int prec) {
 
 
 void App::update_att_params_table() {
-
     this->att_params_table_storage.change_item(0,1,this->att_params.get_name());
     this->att_params_table_storage.change_item(1,1,this->fixed_to_string(this->att_params.get_input_impedance()));
     this->att_params_table_storage.change_item(2,1,this->fixed_to_string(this->att_params.get_output_impedance()));
@@ -36,6 +35,5 @@ void App::init_att_params_table() {
     this->att_params_table_storage.add_row({"Zout", "0", "Ohm"});
     this->att_params_table_storage.add_row({"Att", "0", "dB"});
     this->att_params_table_storage.add_row({"Att", "0", "V/V"});
-
 }
 
