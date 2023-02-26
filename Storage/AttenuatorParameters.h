@@ -27,6 +27,13 @@ namespace Storage {
         double attenuation;
         double attenuation_linear;
 
+        // this variable is value of resistor used for calculating algorithm when Zin != Zout,
+        // for more specific information see user manual
+        double default_value = 100;
+
+        bool io_impedance_equal;
+
+    private:
         /**
          * Store type of attenuator
          *
@@ -38,7 +45,7 @@ namespace Storage {
         int type;
         static constexpr int no_of_types = 3;
 
-        double att_to_linear(double att_db){
+        static double att_to_linear(double att_db){
             return pow(10, (att_db / 20));
         }
 
@@ -101,6 +108,27 @@ namespace Storage {
         }
 
         /**
+         * Set default resistor value, set only when Zin != Zout
+         * @param value value to set
+         */
+        void set_default_value(double value){
+            if (value <= 0 ){
+                throw std::invalid_argument("Default value must be greater than zero");
+            }
+            else{
+                this->default_value = value;
+            }
+        }
+
+        /**
+         * Set to true when input an output impedance is equal
+         * @param state
+         */
+        void set_impedance_equal(bool state = true){
+            this->io_impedance_equal = state;
+        }
+
+        /**
          * Get modulus of input characteristic impedance
          * @return
          */
@@ -145,6 +173,10 @@ namespace Storage {
             return this->type;
         }
 
+        /**
+         * Get name of attenuator type
+         * @return
+         */
         std::string get_name() {
             switch(this->type){
                 case 0:
@@ -160,7 +192,23 @@ namespace Storage {
                     return "B. Tee";
                     break;
             }
-        };
+        }
+
+        /**
+         * Get default resistor value, used only when Zin != Zout
+         * @return
+         */
+        double get_default_value(){
+            return this->default_value;
+        }
+
+        /**
+         * Check if input impedance is equal to output impedance
+         * @return
+         */
+        bool zin_equal_zout(){
+            return this->io_impedance_equal;
+        }
     };
 }
 

@@ -24,15 +24,17 @@ namespace UI{
         }
     }
 
-    double _Utils::get_input_double() {
+    double _Utils::get_input_double(bool *empty) {
         std::string tmp;
         std::getline(std::cin, tmp);
+        if(tmp.empty()) *empty = true;
         return std::stod(tmp);
     }
 
-    int _Utils::get_input_int() {
+    int _Utils::get_input_int(bool *empty) {
         std::string tmp;
         std::getline(std::cin, tmp);
+        if(tmp.empty()) *empty = true;
         return std::stoi(tmp);
     }
 }

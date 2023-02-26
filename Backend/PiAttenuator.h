@@ -18,7 +18,7 @@ namespace Backend {
 
         double Att(std::vector<double> Z);
 
-        std::vector<double> Z(double Zin, double Zout, double Att);
+        std::vector<double> Z(double Zin, double Zout, double Att, bool impedance_equal = false, double R2 = 0);
 
     };
 

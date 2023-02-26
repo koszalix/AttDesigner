@@ -9,7 +9,7 @@
 #include "../Storage/AttenuatorParameters.h"
 
 namespace UI {
-    class Prompts : private _Utils{
+    class Prompts {
         static constexpr int prompt_length = 15;
         static constexpr int prompt_height = 3;
 
@@ -21,7 +21,7 @@ namespace UI {
         void attenuation();
         void attenuator_type();
         void init_prompt();
-
+        void resistor_value();
     Prompts(Storage::AttenuatorParameters &storage) : storage(storage){
 
     }

@@ -9,12 +9,16 @@
 
 namespace Backend{
 class Attenuators {
-
+protected:
+    /**
+     * Precision for comparison of input/output impedance
+     */
+    static constexpr double comp_precision = 1e-4;
 public:
-    virtual double Zin(std::vector<double> Z);
-    virtual double Zout(std::vector<double> Z);
-    virtual double Att(std::vector<double> Z);
-    virtual std::vector<double> Z(double Zin, double Zout, double Att);
+    virtual double Zin(std::vector<double> Z) { return -1; }
+    virtual double Zout(std::vector<double> Z) { return -1; }
+    virtual double Att(std::vector<double> Z) { return -1; }
+    virtual std::vector<double> Z(double Zin, double Zout, double Att) { return -1; }
 };
 }
 
